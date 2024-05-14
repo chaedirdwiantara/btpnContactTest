@@ -5,6 +5,7 @@ import {widthResponsive} from '../utils';
 import {useDispatch, useSelector} from 'react-redux';
 import {ApplicationState} from '../interface/redux.interface';
 import {fetchDataRequest} from '../redux/actions/home';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,8 @@ const HomeScreen = () => {
     dispatch(fetchDataRequest());
   }, [dispatch]);
 
+  console.log('data', data);
+
   // Render your UI based on the state
   return (
     <View>
@@ -26,7 +29,11 @@ const HomeScreen = () => {
       ) : (
         <FlatList
           data={data}
-          renderItem={({item}) => <Text>{item.title}</Text>}
+          renderItem={({item}) => (
+            <SafeAreaView>
+              <Text>{item.firstName}</Text>
+            </SafeAreaView>
+          )}
           keyExtractor={item => item.id.toString()}
         />
       )}
