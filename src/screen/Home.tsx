@@ -28,7 +28,7 @@ const HomeScreen = () => {
   useFocusEffect(
     useCallback(() => {
       dispatch(fetchDataRequest());
-    }, []),
+    }, [dispatch]),
   );
 
   const handleOnPress = (data: dataList) => {
