@@ -1,5 +1,4 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import axios from 'axios';
 import { fetchDataSuccess, fetchDataFailure } from '../actions/home';
 import { FETCH_DATA_REQUEST } from '../../interface/redux.interface';
 import { getListDataEP } from '../../api/listData.api';
