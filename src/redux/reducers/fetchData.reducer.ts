@@ -6,7 +6,7 @@ const initialState: FetchDataState = {
   error: '',
 };
 
-const homeReducer = (state = initialState, action: FetchDataActionTypes): FetchDataState => {
+const fetchDataReducer = (state = initialState, action: FetchDataActionTypes): FetchDataState => {
   switch (action.type) {
     case FETCH_DATA_REQUEST:
       return { ...state, loading: true };
@@ -19,4 +19,4 @@ const homeReducer = (state = initialState, action: FetchDataActionTypes): FetchD
   }
 };
 
-export default homeReducer;
+export default fetchDataReducer;
