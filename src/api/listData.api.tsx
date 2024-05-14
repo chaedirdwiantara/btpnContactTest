@@ -10,3 +10,12 @@ export const getListDataEP = async (): Promise<responseListEp> => {
 
   return data;
 };
+
+export const deleteDataEP = async (id: string): Promise<responseListEp> => {
+  const {data} = await baseApi().request<responseListEp>({
+    url: `/contact/${id}`,
+    method: 'DELETE',
+  });
+
+  return data;
+};

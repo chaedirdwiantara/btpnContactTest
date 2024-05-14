@@ -11,6 +11,9 @@ import {RootStackParams} from '../navigations';
 import {Button, Gap, TopNavigation} from '../components';
 import {color} from '../theme';
 import {widthResponsive} from '../utils';
+import {useDispatch, useSelector} from 'react-redux';
+import {deleteDataRequest} from '../redux/actions/deleteData.action';
+import {AppDeleteDataState} from '../interface/deleteData.interface';
 // import {
 //   addItemToList,
 //   isItemInList,
@@ -22,10 +25,15 @@ type PostDetailProps = NativeStackScreenProps<RootStackParams, 'DetailData'>;
 const DetailData = ({route}: PostDetailProps) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
+  const dispatch = useDispatch();
 
   const [favorite, setFavorite] = useState<boolean>(false);
 
   const data = route.params.data;
+
+  const {success, error, loading} = useSelector(
+    (state: AppDeleteDataState) => state.deleteData,
+  );
 
   //   useEffect(() => {
   //     const checkItemStored = () => {
@@ -35,6 +43,12 @@ const DetailData = ({route}: PostDetailProps) => {
 
   //     checkItemStored();
   //   }, []);
+
+  useEffect(() => {
+    if (success) {
+      navigation.goBack();
+    }
+  }, [success]);
 
   const leftIconOnPress = () => {
     navigation.goBack();
@@ -51,7 +65,7 @@ const DetailData = ({route}: PostDetailProps) => {
   };
 
   const DeteleUserOnPress = () => {
-    console.log('DELETE USER');
+    dispatch(deleteDataRequest(data.id));
   };
 
   const UpdateDataOnPress = () => {

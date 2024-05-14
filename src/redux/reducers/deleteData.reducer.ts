@@ -2,9 +2,7 @@ import { DELETE_DATA_FAILURE, DELETE_DATA_REQUEST, DELETE_DATA_SUCCESS, DeleteDa
 
 const initialState: DeleteDataState = {
   loading: false,
-  payload: {
-    id: '',
-  },
+  success: false,
   error: '',
 };
 
@@ -13,9 +11,9 @@ const deleteDataReducer = (state = initialState, action: DeleteDataActionTypes):
     case DELETE_DATA_REQUEST:
       return { ...state, loading: true };
     case DELETE_DATA_SUCCESS:
-      return { loading: false, error: '', payload: action.payload };
+      return { loading: false, success: true, error: '' };
     case DELETE_DATA_FAILURE:
-      return { loading: false, error: action.payload, payload: initialState.payload };
+      return { loading: false, success: false, error: action.error };
     default:
       return state;
   }

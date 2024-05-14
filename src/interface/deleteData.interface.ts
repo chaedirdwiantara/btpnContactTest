@@ -1,9 +1,6 @@
 
 import { AnyAction } from 'redux-saga';
 
-export interface paramDeleteDataType {
-  id: string;
-}
 
 // Action Types
 export const DELETE_DATA_REQUEST = 'DELETE_DATA_REQUEST';
@@ -13,7 +10,7 @@ export const DELETE_DATA_FAILURE = 'DELETE_DATA_FAILURE';
 // Action Creators Interfaces
 interface DeleteDataRequestAction extends AnyAction {
   type: typeof DELETE_DATA_REQUEST;
-  payload: paramDeleteDataType;
+  id: string;
 }
 
 interface DeleteDataSuccessAction extends AnyAction {
@@ -30,10 +27,10 @@ export type DeleteDataActionTypes = DeleteDataRequestAction | DeleteDataSuccessA
 // State Type
 export interface DeleteDataState {
   loading: boolean;
-  payload: paramDeleteDataType;
+  success: boolean;
   error: string;
 }
 
-export interface AppFetchState {
+export interface AppDeleteDataState {
   deleteData: DeleteDataState;
 }

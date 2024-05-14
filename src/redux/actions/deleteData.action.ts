@@ -2,7 +2,7 @@ import { DELETE_DATA_FAILURE, DELETE_DATA_REQUEST, DELETE_DATA_SUCCESS, DeleteDa
 
 export const deleteDataRequest = (id: string): DeleteDataActionTypes => ({
   type: DELETE_DATA_REQUEST,
-  payload: { id },
+  id,
 });
 
 export const deleteDataSuccess = (): DeleteDataActionTypes => ({
