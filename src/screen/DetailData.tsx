@@ -50,6 +50,14 @@ const DetailData = ({route}: PostDetailProps) => {
     // }
   };
 
+  const DeteleUserOnPress = () => {
+    console.log('DELETE USER');
+  };
+
+  const UpdateDataOnPress = () => {
+    console.log('UPDATE DATA');
+  };
+
   return (
     <View style={styles.container}>
       <TopNavigation.Type1
@@ -75,12 +83,26 @@ const DetailData = ({route}: PostDetailProps) => {
         <Text style={styles.subTitleStyle}>{data.lastName}</Text>
 
         <Gap height={10} />
-        <Button
-          label={favorite ? 'Favorite' : 'Add To Favorite'}
-          containerStyles={styles.buttonStyle}
-          onPress={buttonOnPress}
-          bgColor={favorite ? color.Primary[400] : color.Secondary[200]}
-        />
+        <View style={styles.buttonContainer}>
+          <Button
+            label={favorite ? 'Favorite' : 'Add Favorite'}
+            containerStyles={styles.buttonStyle}
+            onPress={buttonOnPress}
+            bgColor={favorite ? color.Primary[400] : color.Secondary[200]}
+          />
+          <Button
+            label={'Delete User'}
+            containerStyles={styles.buttonStyle}
+            onPress={DeteleUserOnPress}
+            bgColor={color.Error[400]}
+          />
+          <Button
+            label={'Update Data'}
+            containerStyles={styles.buttonStyle}
+            onPress={UpdateDataOnPress}
+            bgColor={color.Warning[900]}
+          />
+        </View>
       </ScrollView>
     </View>
   );
@@ -113,7 +135,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   buttonStyle: {
-    width: widthResponsive(120),
+    width: widthResponsive(100),
     height: undefined,
     aspectRatio: undefined,
     padding: widthResponsive(8),
@@ -126,5 +148,9 @@ const styles = StyleSheet.create({
     width: widthResponsive(100),
     height: widthResponsive(100),
     borderRadius: 10,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
