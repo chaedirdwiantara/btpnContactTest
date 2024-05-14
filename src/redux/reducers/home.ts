@@ -1,12 +1,12 @@
-import { FETCH_DATA_FAILURE, FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, HomeActionTypes, HomeState } from "../../interface/redux.interface";
+import { FETCH_DATA_FAILURE, FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, FetchDataActionTypes, FetchDataState } from "../../interface/fetchData.interface";
 
-const initialState: HomeState = {
+const initialState: FetchDataState = {
   loading: false,
   data: [],
   error: '',
 };
 
-const homeReducer = (state = initialState, action: HomeActionTypes): HomeState => {
+const homeReducer = (state = initialState, action: FetchDataActionTypes): FetchDataState => {
   switch (action.type) {
     case FETCH_DATA_REQUEST:
       return { ...state, loading: true };

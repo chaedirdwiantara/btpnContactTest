@@ -1,6 +1,6 @@
 import { Effect, call, put, takeLatest } from 'redux-saga/effects';
 import { fetchDataSuccess, fetchDataFailure } from '../actions/home';
-import { FETCH_DATA_REQUEST } from '../../interface/redux.interface';
+import { FETCH_DATA_REQUEST } from '../../interface/fetchData.interface';
 import { getListDataEP } from '../../api/listData.api';
 import {  responseListEp } from '../../interface/dataList.interface';
 

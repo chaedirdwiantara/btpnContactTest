@@ -1,5 +1,5 @@
 
-import { dataList, responseListEp } from "./dataList.interface";
+import { dataList } from "./dataList.interface";
 import { AnyAction } from 'redux-saga';
 
 // Action Types
@@ -22,15 +22,15 @@ interface FetchDataFailureAction extends AnyAction {
   payload: string;
 }
 
-export type HomeActionTypes = FetchDataRequestAction | FetchDataSuccessAction | FetchDataFailureAction;
+export type FetchDataActionTypes = FetchDataRequestAction | FetchDataSuccessAction | FetchDataFailureAction;
 
 // State Type
-export interface HomeState {
+export interface FetchDataState {
   loading: boolean;
   data: dataList[]; // Adjust according to the data you expect
   error: string;
 }
 
-export interface ApplicationState {
-  home: HomeState;
+export interface AppFetchState {
+  fetchData: FetchDataState;
 }

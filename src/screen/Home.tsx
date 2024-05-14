@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {color} from '../theme';
 import {widthResponsive} from '../utils';
 import {useDispatch, useSelector} from 'react-redux';
-import {ApplicationState} from '../interface/redux.interface';
+import {AppFetchState} from '../interface/fetchData.interface';
 import {fetchDataRequest} from '../redux/actions/home';
 import {
   EmptyState,
@@ -22,7 +22,7 @@ const HomeScreen = () => {
 
   const dispatch = useDispatch();
   const {data, loading, error} = useSelector(
-    (state: ApplicationState) => state.home,
+    (state: AppFetchState) => state.fetchData,
   );
 
   useEffect(() => {
