@@ -4,7 +4,7 @@ import {color} from '../theme';
 import {widthResponsive} from '../utils';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppFetchState} from '../interface/fetchData.interface';
-import {fetchDataRequest} from '../redux/actions/home';
+import {fetchDataRequest} from '../redux/actions/fetchData.action';
 import {
   EmptyState,
   ListDataCard,
