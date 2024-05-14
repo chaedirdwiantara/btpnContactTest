@@ -1,5 +1,5 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
+import {FlatList, StyleSheet, View} from 'react-native';
+import React, {useCallback} from 'react';
 import {color} from '../theme';
 import {widthResponsive} from '../utils';
 import {useDispatch, useSelector} from 'react-redux';
@@ -12,7 +12,7 @@ import {
   TopNavigation,
 } from '../components';
 import {dataList} from '../interface/dataList.interface';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParams} from '../navigations';
 
@@ -25,9 +25,11 @@ const HomeScreen = () => {
     (state: AppFetchState) => state.fetchData,
   );
 
-  useEffect(() => {
-    dispatch(fetchDataRequest());
-  }, [dispatch]);
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(fetchDataRequest());
+    }, []),
+  );
 
   const handleOnPress = (data: dataList) => {
     navigation.navigate('DetailData', {data});
