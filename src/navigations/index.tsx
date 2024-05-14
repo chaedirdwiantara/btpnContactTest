@@ -19,18 +19,15 @@ import {normalize} from '../utils/formatter';
 
 // Main
 import {FeedScreen, HomeScreen, RewardScreen, ProfileScreen} from '../screen';
-
-// Screen
-// import {EventScreen} from '../screen/Event';
-
-// Icon
-import {FeedIcon, HomeIcon, ProfileIcon, RewardsIcon} from '../assets/icon';
+import {FeedIcon, HomeIcon, ProfileIcon, SearchIcon} from '../assets/icon';
+import DetailData from '../screen/DetailData';
+import {dataList} from '../interface/dataList.interface';
 
 // interface
-
 export type RootStackParams = {
   SplashScreen: undefined;
   MainTab: undefined;
+  DetailData: {data: dataList};
 };
 
 export type MainTabParams = {
@@ -99,7 +96,7 @@ const TabScreen = () => {
             <TouchableOpacity
               style={styles.root}
               onPress={() => navigation.navigate('Rewards')}>
-              <RewardsIcon stroke={color} />
+              <SearchIcon stroke={color} />
               <Text style={[styles.label, {color}]}>{'Rewards'}</Text>
             </TouchableOpacity>
           ),
@@ -136,6 +133,7 @@ export const RootStackScreen = () => (
     // initialRouteName={'SplashScreen'}
   >
     <RootStack.Screen name="MainTab" component={TabScreen} />
+    <RootStack.Screen name="DetailData" component={DetailData} />
   </RootStack.Navigator>
 );
 

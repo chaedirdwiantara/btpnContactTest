@@ -5,9 +5,21 @@ import {widthResponsive} from '../utils';
 import {useDispatch, useSelector} from 'react-redux';
 import {ApplicationState} from '../interface/redux.interface';
 import {fetchDataRequest} from '../redux/actions/home';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {
+  EmptyState,
+  ListDataCard,
+  LoadingIndicator,
+  TopNavigation,
+} from '../components';
+import {dataList} from '../interface/dataList.interface';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParams} from '../navigations';
 
 const HomeScreen = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParams>>();
+
   const dispatch = useDispatch();
   const {data, loading, error} = useSelector(
     (state: ApplicationState) => state.home,
@@ -17,24 +29,40 @@ const HomeScreen = () => {
     dispatch(fetchDataRequest());
   }, [dispatch]);
 
-  console.log('data', data);
+  const handleOnPress = (data: dataList) => {
+    navigation.navigate('DetailData', {data});
+  };
 
   // Render your UI based on the state
   return (
-    <View>
-      {loading ? (
-        <Text>Loading...</Text>
-      ) : error ? (
-        <Text>Error: {error}</Text>
-      ) : (
+    <View style={styles.container}>
+      <TopNavigation.Type2
+        title={'BTPN Officers'}
+        itemStrokeColor={color.Neutral[10]}
+      />
+      {loading && <LoadingIndicator size="large" />}
+      {error && <EmptyState text="Error" subtitle={error} />}
+
+      {!loading && !error && data && (
         <FlatList
           data={data}
-          renderItem={({item}) => (
-            <SafeAreaView>
-              <Text>{item.firstName}</Text>
-            </SafeAreaView>
-          )}
           keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => (
+            <View style={styles.childrenContainer}>
+              <ListDataCard
+                title={item.firstName}
+                subTitle={item.lastName}
+                imageUrl={item.photo}
+                onPress={() => {
+                  handleOnPress(item);
+                }}
+                withIcon={false}
+              />
+            </View>
+          )}
+          ListEmptyComponent={
+            <EmptyState text="No Data Found" subtitle="Try to add more data" />
+          }
         />
       )}
     </View>
@@ -47,8 +75,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.Dark[800],
+  },
+  childrenContainer: {
     padding: widthResponsive(20),
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: '100%',
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'space-between',
   },
 });
