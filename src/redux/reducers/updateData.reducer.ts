@@ -3,12 +3,7 @@ import { UPDATE_DATA_FAILURE, UPDATE_DATA_REQUEST, UPDATE_DATA_SUCCESS, UpdateDa
 const initialState: UpdateDataState = {
   loading: false,
   error: '',
-  body: {
-    firstName: '',
-    lastName: '',
-    age: 0,
-    photo: '',
-  },
+  success: false,
 };
 
 const updateDataReducer = (state = initialState, action: UpdateDataActionTypes): UpdateDataState => {
@@ -16,9 +11,9 @@ const updateDataReducer = (state = initialState, action: UpdateDataActionTypes):
     case UPDATE_DATA_REQUEST:
       return { ...state, loading: true };
     case UPDATE_DATA_SUCCESS:
-      return { loading: false, error: '', body: action.payload };
+      return { loading: false, error: '', success: true };
     case UPDATE_DATA_FAILURE:
-      return { loading: false, error: action.payload, body: initialState.body };
+      return { loading: false, error: action.payload, success: false };
     default:
       return state;
   }

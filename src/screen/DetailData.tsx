@@ -1,5 +1,5 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
@@ -7,42 +7,28 @@ import {
 } from '@react-navigation/native-stack';
 import {mvs} from 'react-native-size-matters';
 import FastImage from 'react-native-fast-image';
-import {RootStackParams} from '../navigations';
+import {MainTabParams, RootStackParams} from '../navigations';
 import {Button, Gap, TopNavigation} from '../components';
 import {color} from '../theme';
 import {widthResponsive} from '../utils';
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteDataRequest} from '../redux/actions/deleteData.action';
 import {AppDeleteDataState} from '../interface/deleteData.interface';
-// import {
-//   addItemToList,
-//   isItemInList,
-//   removeItemFromList,
-// } from '../../hooks/use-storage.hook';
 
-type PostDetailProps = NativeStackScreenProps<RootStackParams, 'DetailData'>;
+type DataDetailProps = NativeStackScreenProps<RootStackParams, 'DetailData'>;
 
-const DetailData = ({route}: PostDetailProps) => {
+const DetailData = ({route}: DataDetailProps) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
+  const MainNavigation =
+    useNavigation<NativeStackNavigationProp<MainTabParams>>();
   const dispatch = useDispatch();
-
-  const [favorite, setFavorite] = useState<boolean>(false);
 
   const data = route.params.data;
 
   const {success, error, loading} = useSelector(
     (state: AppDeleteDataState) => state.deleteData,
   );
-
-  //   useEffect(() => {
-  //     const checkItemStored = () => {
-  //       const itemExists = isItemInList(data.trackId);
-  //       setFavorite(itemExists);
-  //     };
-
-  //     checkItemStored();
-  //   }, []);
 
   useEffect(() => {
     if (success) {
@@ -54,22 +40,12 @@ const DetailData = ({route}: PostDetailProps) => {
     navigation.goBack();
   };
 
-  const buttonOnPress = () => {
-    // if (favorite) {
-    //   setFavorite(false);
-    //   removeItemFromList(data.trackId);
-    // } else {
-    //   setFavorite(true);
-    //   addItemToList(data);
-    // }
-  };
-
   const DeteleUserOnPress = () => {
     dispatch(deleteDataRequest(data.id));
   };
 
   const UpdateDataOnPress = () => {
-    console.log('UPDATE DATA');
+    MainNavigation.navigate('Create', {data});
   };
 
   return (
@@ -98,12 +74,6 @@ const DetailData = ({route}: PostDetailProps) => {
 
         <Gap height={10} />
         <View style={styles.buttonContainer}>
-          <Button
-            label={favorite ? 'Favorite' : 'Add Favorite'}
-            containerStyles={styles.buttonStyle}
-            onPress={buttonOnPress}
-            bgColor={favorite ? color.Primary[400] : color.Secondary[200]}
-          />
           <Button
             label={'Delete User'}
             containerStyles={styles.buttonStyle}

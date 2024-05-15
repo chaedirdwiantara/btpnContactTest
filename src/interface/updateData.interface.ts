@@ -3,6 +3,7 @@ import { dataList } from "./dataList.interface";
 import { AnyAction } from 'redux-saga';
 
 export interface bodyParamsUpdaDataType {
+  id: string;
   firstName: string;
   lastName: string;
   age: number;
@@ -33,7 +34,7 @@ export type UpdateDataActionTypes = UpdateDataRequestAction | UpdateDataSuccessA
 // State Type
 export interface UpdateDataState {
   loading: boolean;
-  body: bodyParamsUpdaDataType;
+  success: boolean;
   error: string;
 }
 

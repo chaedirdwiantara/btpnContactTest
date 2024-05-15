@@ -1,12 +1,12 @@
 import { Effect, call, put, takeLatest } from 'redux-saga/effects';
-import { getListDataEP } from '../../api/listData.api';
+import {  updateDataEP } from '../../api/listData.api';
 import {  responseListEp } from '../../interface/dataList.interface';
 import { updateDataFailure, updateDataSuccess } from '../actions/updateData.action';
-import { UPDATE_DATA_REQUEST } from '../../interface/updateData.interface';
+import { UPDATE_DATA_REQUEST, UpdateDataActionTypes } from '../../interface/updateData.interface';
 
-function* updateDataSaga(): Generator<Effect, void, responseListEp> {
+function* updateDataSaga(action:UpdateDataActionTypes): Generator<Effect, void, responseListEp> {
   try {
-    const response = yield call(getListDataEP);
+    const response = yield call(updateDataEP, action.body);
     yield put(updateDataSuccess());
   } catch (error: any) {
     yield put(updateDataFailure(error.message));

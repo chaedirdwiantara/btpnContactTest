@@ -18,8 +18,8 @@ import {color, font} from '../theme';
 import {normalize} from '../utils/formatter';
 
 // Main
-import {FeedScreen, HomeScreen, RewardScreen, ProfileScreen} from '../screen';
-import {FeedIcon, HomeIcon, ProfileIcon, SearchIcon} from '../assets/icon';
+import {HomeScreen, CreateScreen} from '../screen';
+import {FeedIcon, HomeIcon} from '../assets/icon';
 import DetailData from '../screen/DetailData';
 import {dataList} from '../interface/dataList.interface';
 
@@ -31,7 +31,7 @@ export type RootStackParams = {
 };
 
 export type MainTabParams = {
-  Feed: undefined;
+  Create: {data: dataList} | undefined;
   Home: undefined;
   Rewards: undefined;
   Profile: {
@@ -77,48 +77,14 @@ const TabScreen = () => {
         }}
       />
       <MainTab.Screen
-        name="Feed"
-        component={FeedScreen}
+        name="Create"
+        component={CreateScreen}
         options={{
           tabBarIcon: ({color}) => (
             <View style={styles.root}>
               <FeedIcon stroke={color} />
-              <Text style={[styles.label, {color}]}>{'Feed'}</Text>
+              <Text style={[styles.label, {color}]}>{'Create'}</Text>
             </View>
-          ),
-        }}
-      />
-      <MainTab.Screen
-        name="Rewards"
-        component={RewardScreen}
-        options={{
-          tabBarIcon: ({color}) => (
-            <TouchableOpacity
-              style={styles.root}
-              onPress={() => navigation.navigate('Rewards')}>
-              <SearchIcon stroke={color} />
-              <Text style={[styles.label, {color}]}>{'Rewards'}</Text>
-            </TouchableOpacity>
-          ),
-        }}
-      />
-      <MainTab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        initialParams={{showToast: false, deletePlaylist: false}}
-        options={{
-          tabBarIcon: ({color}) => (
-            <TouchableOpacity
-              style={styles.root}
-              onPress={() =>
-                navigation.navigate('Profile', {
-                  showToast: false,
-                  deletePlaylist: false,
-                })
-              }>
-              <ProfileIcon stroke={color} />
-              <Text style={[styles.label, {color}]}>{'Profile'}</Text>
-            </TouchableOpacity>
           ),
         }}
       />
