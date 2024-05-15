@@ -1,10 +1,11 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {color} from '../../../theme';
 import {widthResponsive} from '../../../utils';
 import FastImage from 'react-native-fast-image';
 import {Gap} from '../..';
 import {mvs} from 'react-native-size-matters';
+import {dummyPhoto} from '../../../data/dummyData';
 
 interface ListDataCardProps {
   imageUrl: string;
@@ -26,6 +27,9 @@ const ListDataCard: React.FC<ListDataCardProps> = (
     disabled = false,
     withIcon = false,
   } = props;
+
+  const [imageUri, setImageUri] = useState(imageUrl);
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -34,11 +38,12 @@ const ListDataCard: React.FC<ListDataCardProps> = (
       <FastImage
         style={{width: 50, height: 50, borderRadius: 10}}
         source={{
-          uri: imageUrl,
+          uri: imageUri,
           headers: {Authorization: 'someAuthToken'},
           priority: FastImage.priority.high,
         }}
         resizeMode={FastImage.resizeMode.cover}
+        onError={() => setImageUri(dummyPhoto)}
       />
       <Gap width={20} />
       <View>

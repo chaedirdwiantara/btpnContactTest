@@ -1,5 +1,5 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
@@ -14,6 +14,7 @@ import {widthResponsive} from '../utils';
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteDataRequest} from '../redux/actions/deleteData.action';
 import {AppDeleteDataState} from '../interface/deleteData.interface';
+import {dummyPhoto} from '../data/dummyData';
 
 type DataDetailProps = NativeStackScreenProps<RootStackParams, 'DetailData'>;
 
@@ -29,6 +30,8 @@ const DetailData = ({route}: DataDetailProps) => {
   const {success, error, loading} = useSelector(
     (state: AppDeleteDataState) => state.deleteData,
   );
+
+  const [imageUri, setImageUri] = useState(data.photo);
 
   useEffect(() => {
     if (success) {
@@ -61,11 +64,12 @@ const DetailData = ({route}: DataDetailProps) => {
           <FastImage
             style={styles.imageStyle}
             source={{
-              uri: data.photo,
+              uri: imageUri,
               headers: {Authorization: 'someAuthToken'},
               priority: FastImage.priority.high,
             }}
             resizeMode={FastImage.resizeMode.cover}
+            onError={() => setImageUri(dummyPhoto)}
           />
         </View>
         <Gap height={10} />

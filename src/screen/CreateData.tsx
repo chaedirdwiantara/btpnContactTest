@@ -97,7 +97,7 @@ const CreateScreen = ({route}: CrateDataProps) => {
             firstName: firstNameValue,
             lastName: lastNameValue,
             age: Number(ageValue),
-            photo: dummyPhoto,
+            photo: data.photo,
           }),
         );
       } else {
