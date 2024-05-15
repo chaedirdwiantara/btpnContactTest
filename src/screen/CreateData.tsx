@@ -2,7 +2,7 @@ import {Alert, StyleSheet, View} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {color} from '../theme';
 import {widthResponsive} from '../utils';
-import {Button, Gap, InputText} from '../components';
+import {Button, Gap, InputText, TopNavigation} from '../components';
 import {mvs} from 'react-native-size-matters';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppCreateDataState} from '../interface/createData.interface';
@@ -14,6 +14,7 @@ import {dataList} from '../interface/dataList.interface';
 import {useFocusEffect} from '@react-navigation/native';
 import {updateDataRequest} from '../redux/actions/updateData.action';
 import {AppUpdateState} from '../interface/updateData.interface';
+import FastImage from 'react-native-fast-image';
 
 type CrateDataProps = NativeStackScreenProps<MainTabParams, 'Create'>;
 
@@ -111,58 +112,76 @@ const CreateScreen = ({route}: CrateDataProps) => {
   };
   return (
     <View style={styles.container}>
-      <InputText
-        value={firstNameValue}
-        onChangeText={setFirstNameValue}
-        placeholder={'First Name..'}
-        onFocus={() => {
-          handleFocusInput('firstName');
-        }}
-        onBlur={() => {
-          handleFocusInput(null);
-        }}
-        isError={false}
-        errorMsg={''}
-        isFocus={focusInput === 'firstName'}
+      <TopNavigation.Type2
+        title={'Create or Update'}
+        itemStrokeColor={color.Neutral[10]}
       />
-      <Gap height={16} />
-      <InputText
-        value={lastNameValue}
-        onChangeText={setLastNameValue}
-        placeholder={'Last Name..'}
-        onFocus={() => {
-          handleFocusInput('lastName');
-        }}
-        onBlur={() => {
-          handleFocusInput(null);
-        }}
-        isError={false}
-        errorMsg={''}
-        isFocus={focusInput === 'lastName'}
-      />
-      <Gap height={16} />
-      <InputText
-        value={ageValue}
-        onChangeText={setAgeValue}
-        placeholder={'Age..'}
-        onFocus={() => {
-          handleFocusInput('age');
-        }}
-        onBlur={() => {
-          handleFocusInput(null);
-        }}
-        isError={false}
-        errorMsg={''}
-        isFocus={focusInput === 'age'}
-      />
-      <Gap height={16} />
-      <Button
-        label={data ? 'Update' : 'Submit'}
-        textStyles={{fontSize: mvs(14)}}
-        containerStyles={styles.buttonStyle}
-        onPress={data ? handleOnUpdate : handleOnSubmit}
-        bgColor={data ? color.Warning[900] : color.Success[500]}
-      />
+      <View style={styles.bodyContainer}>
+        <View style={styles.imageContainer}>
+          <FastImage
+            style={styles.imageStyle}
+            source={{
+              uri: data?.photo ?? dummyPhoto,
+              headers: {Authorization: 'someAuthToken'},
+              priority: FastImage.priority.high,
+            }}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+        </View>
+        <Gap height={16} />
+        <InputText
+          value={firstNameValue}
+          onChangeText={setFirstNameValue}
+          placeholder={'First Name..'}
+          onFocus={() => {
+            handleFocusInput('firstName');
+          }}
+          onBlur={() => {
+            handleFocusInput(null);
+          }}
+          isError={false}
+          errorMsg={''}
+          isFocus={focusInput === 'firstName'}
+        />
+        <Gap height={16} />
+        <InputText
+          value={lastNameValue}
+          onChangeText={setLastNameValue}
+          placeholder={'Last Name..'}
+          onFocus={() => {
+            handleFocusInput('lastName');
+          }}
+          onBlur={() => {
+            handleFocusInput(null);
+          }}
+          isError={false}
+          errorMsg={''}
+          isFocus={focusInput === 'lastName'}
+        />
+        <Gap height={16} />
+        <InputText
+          value={ageValue}
+          onChangeText={setAgeValue}
+          placeholder={'Age..'}
+          onFocus={() => {
+            handleFocusInput('age');
+          }}
+          onBlur={() => {
+            handleFocusInput(null);
+          }}
+          isError={false}
+          errorMsg={''}
+          isFocus={focusInput === 'age'}
+        />
+        <Gap height={16} />
+        <Button
+          label={data ? 'Update' : 'Submit'}
+          textStyles={{fontSize: mvs(14)}}
+          containerStyles={styles.buttonStyle}
+          onPress={data ? handleOnUpdate : handleOnSubmit}
+          bgColor={data ? color.Warning[900] : color.Success[500]}
+        />
+      </View>
     </View>
   );
 };
@@ -173,9 +192,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.Dark[800],
+  },
+  bodyContainer: {
     padding: widthResponsive(20),
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonStyle: {width: '100%'},
+  imageContainer: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  imageStyle: {
+    width: widthResponsive(100),
+    height: widthResponsive(100),
+    borderRadius: 10,
+  },
 });
