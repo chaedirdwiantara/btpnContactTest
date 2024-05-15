@@ -3,12 +3,7 @@ import { CREATE_DATA_FAILURE, CREATE_DATA_REQUEST, CREATE_DATA_SUCCESS, CreateDa
 
 const initialState: CreateDataState = {
   loading: false,
-  body: {
-    firstName: '',
-    lastName: '',
-    age: 0,
-    photo: '',
-  },
+  success: false,
   error: '',
 };
 
@@ -17,9 +12,9 @@ const createDataReducer = (state = initialState, action: CreateDataActionTypes):
     case CREATE_DATA_REQUEST:
       return { ...state, loading: true };
     case CREATE_DATA_SUCCESS:
-      return { loading: false, error: '', body: action.payload };
+      return { loading: false, error: '', success: true };
     case CREATE_DATA_FAILURE:
-      return { ...state, loading: false, error: action.payload, body: initialState.body };
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }

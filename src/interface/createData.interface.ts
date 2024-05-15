@@ -33,10 +33,10 @@ export type CreateDataActionTypes = CreateDataRequestAction | CreateDataSuccessA
 // State Type
 export interface CreateDataState {
   loading: boolean;
-  body: bodyParamsCreateDataType;
+  success: boolean;
   error: string;
 }
 
-export interface AppCreateState {
+export interface AppCreateDataState {
   createData: CreateDataState;
 }
