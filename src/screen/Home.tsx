@@ -42,7 +42,7 @@ const HomeScreen = () => {
         title={'BTPN Officers'}
         itemStrokeColor={color.Neutral[10]}
       />
-      {loading && <LoadingIndicator size="large" />}
+      {loading && <LoadingIndicator size="large" testID="loading-indicator" />}
       {error && <EmptyState text="Error" subtitle={error} />}
 
       {!loading && !error && data && (

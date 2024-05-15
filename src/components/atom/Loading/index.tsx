@@ -4,13 +4,18 @@ import {color} from '../../../theme';
 
 type Props = {
   size?: 'small' | 'large';
+  testID?: string; // Added this line
 };
 
 const LoadingIndicator: React.FC<Props> = (props: Props) => {
-  const {size} = props;
+  const {size, testID} = props;
   return (
     <View style={styles.container}>
-      <ActivityIndicator size={size ?? 'large'} color={color.Pink[200]} />
+      <ActivityIndicator
+        size={size ?? 'large'}
+        color={color.Pink[200]}
+        testID={testID}
+      />
     </View>
   );
 };
